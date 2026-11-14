@@ -4,6 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#070b12">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-180.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="PIN 0369">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>PIN Tracker · 0 3 6 9</title>
 <style>
 :root{--bg:#070b12;--panel:#101722;--panel-2:#141e2c;--line:#253246;--text:#f2f6fb;--muted:#91a0b5;--accent:#65d5c8;--accent-2:#86a9ff;--danger:#ff9eae;--shadow:0 24px 70px #0008}
@@ -127,5 +133,6 @@ button,input{font:inherit}button{cursor:pointer;color:inherit;border:0}.hidden{d
   (async()=>{idb=await openIDB();await recoverIfEmpty();fbStatus='поиск базы…';updateStorageStatus();fbHost=await detectHost();await syncAuth();updateStorageStatus();if(sessionStorage.getItem(AUTH)==='1')fbPull()})();
 })();
 </script>
+<script>if('serviceWorker'in navigator){addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}))}</script>
 </body>
 </html>
