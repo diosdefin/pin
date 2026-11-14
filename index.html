@@ -48,6 +48,7 @@ button,input{font:inherit}button{cursor:pointer;color:inherit;border:0}.hidden{d
   const loadRecords=()=>{const primary=parseRecords(STORAGE),backup=parseRecords(BACKUP);if(primary)return primary;if(backup)return backup;return{}};
   let records=loadRecords(),filter='all',query='',entered='',points=[];
   const save=()=>{const payload=JSON.stringify(records);try{localStorage.setItem(BACKUP,payload);localStorage.setItem(STORAGE,payload)}catch{alert('Не удалось сохранить прогресс. Освободите место в памяти браузера и не закрывайте страницу до повторной попытки.')}};
+  if(records&&Object.keys(records).length&&!localStorage.getItem(BACKUP))save();
   const checkedCodes=()=>Object.keys(records);
   const formatDate=value=>value?new Intl.DateTimeFormat('ru-RU',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'}).format(new Date(value)):'дата не сохранена';
   const download=(name,data)=>{const url=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'})),a=document.createElement('a');a.href=url;a.download=name;a.click();URL.revokeObjectURL(url)};
