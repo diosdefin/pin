@@ -81,7 +81,7 @@ button,input{font:inherit}button{cursor:pointer;color:inherit;border:0}.hidden{d
   let statusTarget='';
   const closeStatusModal=()=>{$('statusModal').classList.add('hidden');statusTarget=''};
   const openStatusModal=code=>{statusTarget=code;$('statusCode').textContent=code;$('statusModal').classList.remove('hidden')};
-  const setReviewStatus=status=>{if(!statusTarget)return;const previous=records[statusTarget]||{};records[statusTarget]={...previous,status,statusAt:new Date().toISOString()};save();closeStatusModal();render()};
+  const setReviewStatus=status=>{if(!statusTarget)return;const previous=records[statusTarget];if(previous&&previous.status===status){delete records[statusTarget]}else{records[statusTarget]={...(previous||{}),status,statusAt:new Date().toISOString()}}save();closeStatusModal();render()};
   $('closeStatusModal').onclick=closeStatusModal;$('markSuspicious').onclick=()=>setReviewStatus('suspicious');$('markReview').onclick=()=>setReviewStatus('review');
   function open(){ $('auth').classList.add('hidden');$('app').classList.remove('hidden');render()}$('login').onclick=()=>{if($('password').value===getPassword()){sessionStorage.setItem(AUTH,'1');$('authError').textContent='';open()}else $('authError').textContent='Неверный пароль'};$('password').onkeydown=e=>{if(e.key==='Enter')$('login').click()};$('logout').onclick=()=>{sessionStorage.removeItem(AUTH);location.reload()};if(sessionStorage.getItem(AUTH)==='1')open();
 })();
